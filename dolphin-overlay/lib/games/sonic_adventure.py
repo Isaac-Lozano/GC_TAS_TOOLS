@@ -1,0 +1,226 @@
+from .. import game_overlay, game_overlay_components
+
+WHITE = (255, 255, 255, 255)
+BLACK = (0, 0, 0, 255)
+RED = (255, 0, 0, 255)
+BLUE = (0, 0, 255, 255)
+TRANSPARENT = (0, 0, 0, 0)
+
+PLOT_SIZE = 50
+
+OVERLAY = game_overlay.GameOverlay(
+    defaults=game_overlay.GameOverlayDefaults(
+        component_background_color=BLACK,
+        font_name="Kimberley Bl.otf",
+        font_size=30,
+        font_color=WHITE,
+        font_stroke_width=3,
+        font_stroke_fill=BLACK,
+        font_monospace_gap=20,
+        main_line_color=RED,
+        main_line_width=3,
+        outline_width=3,
+        outline_color=WHITE,
+        positive_color=RED,
+        negative_color=BLUE,
+    ),
+    components=[
+        game_overlay_components.StaticImageComponent(
+            image_filename="shadow.png",
+            position=(0, 0),
+            size=(480, 1080),
+        ),
+        game_overlay_components.TextComponent(
+            text_template="Time (LRT):",
+            variables=[],
+            variable_types=[],
+            position=(30, 50),
+        ),
+        game_overlay_components.TextComponent(
+            text_template="{:02d}:{:02d}:{:02d}",
+            variables=["StageMinutes", "StageSeconds", "StageCentiseconds"],
+            variable_types=[int, int, int],
+            position=(200, 50),
+            monospace=True,
+        ),
+        # Speed section
+        game_overlay_components.TextComponent(
+            text_template="Speed",
+            variables=[],
+            variable_types=[],
+            position=(30, 150),
+        ),
+        game_overlay_components.TextComponent(
+            text_template="Relative",
+            variables=[],
+            variable_types=[],
+            position=(150, 200),
+            align="middle",
+        ),
+        game_overlay_components.TextComponent(
+            text_template="F:",
+            variables=[],
+            variable_types=[],
+            position=(30, 260),
+        ),
+        game_overlay_components.SpeedDialComponent(
+            variable="FSpd",
+            max_value=16.0,
+            center=(160, 260),
+            size=(180, 30),
+        ),
+        # game_overlay_components.SpeedDialComponentV2(
+        #     variable="FSpd",
+        #     max_value=16.0,
+        #     center=(160, 260),
+        #     size=(180, 30),
+        # ),
+        game_overlay_components.TextComponent(
+            text_template="V:",
+            variables=[],
+            variable_types=[],
+            position=(30, 300),
+        ),
+        game_overlay_components.SpeedDialComponent(
+            variable="VSpd",
+            max_value=16.0,
+            center=(160, 300),
+            size=(180, 30),
+        ),
+        # game_overlay_components.SpeedDialComponentV2(
+        #     variable="VSpd",
+        #     max_value=16.0,
+        #     center=(160, 300),
+        #     size=(180, 30),
+        # ),
+        game_overlay_components.TextComponent(
+            text_template="S:",
+            variables=[],
+            variable_types=[],
+            position=(30, 340),
+        ),
+        game_overlay_components.SpeedDialComponent(
+            variable="SdSpd",
+            max_value=16.0,
+            center=(160, 340),
+            size=(180, 30),
+        ),
+        # game_overlay_components.SpeedDialComponentV2(
+        #     variable="SdSpd",
+        #     max_value=16.0,
+        #     center=(160, 340),
+        #     size=(180, 30),
+        # ),
+        game_overlay_components.TextComponent(
+            text_template="Global",
+            variables=[],
+            variable_types=[],
+            position=(350, 200),
+            align="middle",
+        ),
+        game_overlay_components.Speed2DPlaneComponent(
+            x_variable="XSpd",
+            y_variable="ZSpd",
+            max_value=16.0,
+            center=(350, 300),
+            size=PLOT_SIZE,
+            draw_axes=True,
+        ),
+        # Position section
+        game_overlay_components.TextComponent(
+            text_template="Position",
+            variables=[],
+            variable_types=[],
+            position=(30, 400),
+        ),
+        game_overlay_components.TextComponent(
+            text_template="X:",
+            variables=[],
+            variable_types=[],
+            position=(30, 460),
+        ),
+        game_overlay_components.TextComponent(
+            text_template="Y:",
+            variables=[],
+            variable_types=[],
+            position=(30, 500),
+        ),
+        game_overlay_components.TextComponent(
+            text_template="Z:",
+            variables=[],
+            variable_types=[],
+            position=(30, 540),
+        ),
+        game_overlay_components.TextComponent(
+            text_template="{:11.4f}",
+            variables=["XPos"],
+            variable_types=[float],
+            position=(60, 460),
+            monospace=True,
+        ),
+        game_overlay_components.TextComponent(
+            text_template="{:11.4f}",
+            variables=["YPos"],
+            variable_types=[float],
+            position=(60, 500),
+            monospace=True,
+        ),
+        game_overlay_components.TextComponent(
+            text_template="{:11.4f}",
+            variables=["ZPos"],
+            variable_types=[float],
+            position=(60, 540),
+            monospace=True,
+        ),
+        # Rotation section
+        game_overlay_components.TextComponent(
+            text_template="Rotation",
+            variables=[],
+            variable_types=[],
+            position=(30, 600),
+        ),
+        game_overlay_components.TextComponent(
+            text_template="Gravity Vector",
+            variables=[],
+            variable_types=[],
+            position=(150, 650),
+            align="middle",
+        ),
+        # TODO: Gravity direction
+        game_overlay_components.TextComponent(
+            text_template="Gravity Tilt",
+            variables=[],
+            variable_types=[],
+            position=(350, 650),
+            align="middle",
+        ),
+        game_overlay_components.GravityTiltComponent(
+            x_rot_var="XRot",
+            y_rot_var="YRot",
+            z_rot_var="ZRot",
+            center=(350, 730),
+            size=PLOT_SIZE,
+            draw_axes=False,
+            method="vector",
+        ),
+        game_overlay_components.TextComponent(
+            text_template="Facing",
+            variables=[],
+            variable_types=[],
+            position=(150, 820),
+            align="middle",
+        ),
+        game_overlay_components.AngleDirectionComponent(
+            variable="YRot",
+            center=(150, 900),
+            size=PLOT_SIZE,
+            draw_axes=False,
+        ),
+        game_overlay_components.InputViewerComponent(
+            center=(1200, 880),
+            input_skin_name="TronStyleSA2B",
+        ),
+    ],
+    resolution=(1960, 1080),
+    game_feed_box=(480, 0, 1920, 1080),
+)
